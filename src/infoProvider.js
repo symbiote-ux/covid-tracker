@@ -2,14 +2,12 @@ class InfoProvider {
   constructor(content) {
     this.info = content;
   }
-
-  getDistrictInfo(district) {
-    for (let states in this.info) {
-      if (
-        this.info[states].districtData &&
-        district in this.info[states].districtData
-      )
-        return this.info[states].districtData[district];
+  getDistrictInfo(value) {
+    for (let i = 0; i < this.info.length; i++) {
+      const districtInfo = this.info[i].districtData.find(
+        (district) => district.id.toLowerCase() === value.toLowerCase()
+      );
+      if (districtInfo) return districtInfo;
     }
   }
 }
