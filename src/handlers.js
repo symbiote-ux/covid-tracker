@@ -7,9 +7,16 @@ const { InfoProvider } = require('./infoProvider');
 const infoProvider = new InfoProvider(content);
 
 app.get('/:district/', (req, res) => {
-  const districtData = infoProvider.getDistrictInfo(req.params.district);
-  console.log(districtData);
-  res.json(districtData);
+  const districtInfo = infoProvider.getDistrictInfo(req.params.district);
+  console.log(districtInfo);
+  res.json(districtInfo);
+  res.end();
+});
+
+app.get('/:state/', (req, res) => {
+  const StateInfo = infoProvider.getStateInfo(req.params.state);
+  console.log(StateInfo);
+  res.json(StateInfo);
   res.end();
 });
 

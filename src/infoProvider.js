@@ -10,6 +10,11 @@ class InfoProvider {
       if (districtInfo) return districtInfo;
     }
   }
+  getStateInfo(value) {
+    return this.info.find((stateInfo) => {
+      stateInfo.state.toLowerCase() === value.toLowerCase();
+    });
+  }
 }
 
 module.exports = { InfoProvider };
