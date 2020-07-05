@@ -5,10 +5,13 @@ class InfoProvider {
 
   getDistrictInfo(district) {
     for (let states in this.info) {
-      if (district in this.info[states].districtData)
+      if (
+        this.info[states].districtData &&
+        district in this.info[states].districtData
+      )
         return this.info[states].districtData[district];
     }
   }
 }
 
-module.exports = {InfoProvider};
+module.exports = { InfoProvider };

@@ -7,8 +7,8 @@ const {InfoProvider} = require('./infoProvider');
 const infoProvider = new InfoProvider(content);
 
 app.get('/:district/', (req, res) => {
-  res.write(infoProvider.getDistrictInfo(req.params.district));
-  res.end();
+  const districtData = infoProvider.getDistrictInfo(req.params.district);
+  res.json(districtData);
 });
 
 module.exports = {app};
