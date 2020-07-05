@@ -1,0 +1,8 @@
+=> fetch the data from covid site.
+=> write server.
+=> write worker on push mechanism.
+=> it should work for: 
+    => single work for single worker.
+    => multiple work single worker.
+    => multiple work multiple worker.
+=> redis should have the mechanism that will hold data for ten minutes just like as buffer.  
