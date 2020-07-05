@@ -11,9 +11,9 @@ class InfoProvider {
     }
   }
   getStateInfo(value) {
-    return this.info.find((stateInfo) => {
-      stateInfo.state.toLowerCase() === value.toLowerCase();
-    });
+    return this.info.find(
+      (stateInfo) => stateInfo.state.toLowerCase() === value.toLowerCase()
+    );
   }
 }
 

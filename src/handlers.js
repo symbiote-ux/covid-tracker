@@ -6,17 +6,17 @@ const { InfoProvider } = require('./infoProvider');
 
 const infoProvider = new InfoProvider(content);
 
-app.get('/:district/', (req, res) => {
+app.get('/district/:district/', (req, res) => {
   const districtInfo = infoProvider.getDistrictInfo(req.params.district);
   console.log(districtInfo);
   res.json(districtInfo);
   res.end();
 });
 
-app.get('/:state/', (req, res) => {
-  const StateInfo = infoProvider.getStateInfo(req.params.state);
-  console.log(StateInfo);
-  res.json(StateInfo);
+app.get('/state/:state/', (req, res) => {
+  const stateInfo = infoProvider.getStateInfo(req.params.state);
+  console.log(stateInfo);
+  res.json(stateInfo);
   res.end();
 });
 
