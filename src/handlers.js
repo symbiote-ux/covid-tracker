@@ -8,16 +8,12 @@ const infoProvider = new InfoProvider(content);
 
 app.get('/district/:district/', (req, res) => {
   const districtInfo = infoProvider.getDistrictInfo(req.params.district);
-  console.log(districtInfo);
   res.json(districtInfo);
-  res.end();
 });
 
 app.get('/state/:state/', (req, res) => {
   const StateInfo = infoProvider.getStateInfo(req.params.state);
-  console.log(StateInfo);
   res.json(StateInfo);
-  res.end();
 });
 
 module.exports = { app };
