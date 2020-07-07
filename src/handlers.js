@@ -28,15 +28,19 @@ app.use((req, res, next) => {
 });
 
 app.get('/district/:district/', (req, res) => {
-  const districtInfo = infoProvider.getDistrictInfo(req.params.district);
-  res.json(districtInfo);
+  // const districtInfo = infoProvider.getDistrictInfo(req.params.district);
+  districtScheduler.schedule(req.params.district);
+  // res.json(districtInfo);
+  console.log('job scheduled', req.params.district);
 });
 
 app.get('/state/:state/', (req, res) => {
-  const StateInfo = infoProvider.getStateInfo(req.params.state);
-  res.json(StateInfo);
+  // const StateInfo = infoProvider.getStateInfo(req.params.state);
+  stateScheduler.schedule(req.params.state);
+  console.log('job scheduled', req.params.state);
+  // res.json(StateInfo);
 });
 
-app.post
+app.post;
 
 module.exports = { app };
