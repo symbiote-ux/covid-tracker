@@ -15,8 +15,17 @@ const getWorkerOptions = () => {
 };
 
 const infoProvider = new InfoProvider(content);
-const scheduler = new Scheduler(getWorkerOptions());
-scheduler.start();
+
+const districtScheduler = new Scheduler(getWorkerOptions());
+districtScheduler.start();
+
+const stateScheduler = new Scheduler(getWorkerOptions());
+stateScheduler.start();
+
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`);
+  next();
+});
 
 app.get('/district/:district/', (req, res) => {
   const districtInfo = infoProvider.getDistrictInfo(req.params.district);
@@ -27,5 +36,7 @@ app.get('/state/:state/', (req, res) => {
   const StateInfo = infoProvider.getStateInfo(req.params.state);
   res.json(StateInfo);
 });
+
+app.post
 
 module.exports = { app };
