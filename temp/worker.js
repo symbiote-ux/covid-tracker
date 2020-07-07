@@ -1,6 +1,10 @@
 const http = require('http');
 const express = require('express');
 const app = express();
+const {InfoProvider} = require('./infoProvider');
+const content = require('../database/district.json');
+
+const infoProvider = new InfoProvider(content);
 
 const PORT = 5000;
 const getServerOptions = () => {
@@ -29,7 +33,7 @@ app.post('/process', (req, res) => {
   req.on('data', (chunk) => (data += chunk));
   req.on('end', () => {
     const params = JSON.parse(data);
-    processImages(params)
+    infoProvider.getDistrictInfo(params)
       .then((tags) => {
         console.log(tags);
         return { id: params.id, tags: tags };

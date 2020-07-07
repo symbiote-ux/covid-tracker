@@ -23,10 +23,10 @@ const getWork = (place) => {
 const infoProvider = new InfoProvider(content);
 
 const districtScheduler = new Scheduler(getWorkerOptions());
-districtScheduler.start();
+// districtScheduler.start();
 
 const stateScheduler = new Scheduler(getWorkerOptions());
-stateScheduler.start();
+// stateScheduler.start();
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
