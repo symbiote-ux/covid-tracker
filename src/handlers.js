@@ -31,10 +31,10 @@ app.post('/completed-job/:id', (req, res) => {
   let data = '';
   req.on('data', (chunk) => (data += chunk));
   req.on('end', () => {
-    const tags = JSON.parse(data);
-    console.log('received tags', tags);
-    imageSets.completedProcessing(req.params.id, tags);
-    scheduler.setWorkerFree();
+    const result = JSON.parse(data);
+    console.log('received result', result);
+    // imageSets.completedProcessing(req.params.id, tags);
+    districtScheduler.setWorkerFree();
     res.end();
   });
 });
@@ -45,10 +45,10 @@ app.get('/district/:district/', (req, res) => {
   res.end();
 });
 
-app.get('/state/:state/', (req, res) => {
-  stateScheduler.schedule(getWork(req.params.state));
-  console.log('job scheduled', req.params.state);
-  res.end();
-});
+// app.get('/state/:state/', (req, res) => {
+//   stateScheduler.schedule(getWork(req.params.state));
+//   console.log('job scheduled', req.params.state);
+//   res.end();
+// });
 
 module.exports = { app };

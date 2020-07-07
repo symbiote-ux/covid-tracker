@@ -15,11 +15,11 @@ const getServerOptions = () => {
   };
 };
 
-const informWorkerFree = ({ id, tags }) => {
+const informWorkerFree = ( id, result ) => {
   const options = getServerOptions();
   options.path = `/completed-job/${id}`;
   const req = http.request(options, (res) => {});
-  req.write(JSON.stringify(tags));
+  req.write(JSON.stringify(result));
   req.end();
 };
 
@@ -30,7 +30,8 @@ app.post('/process', (req, res) => {
     const info = JSON.parse(data);
     const result = infoProvider.getDistrictInfo(info.place);
     console.log(result);
-    informWorkerFree(info);
+    informWorkerFree(info.id, result);
+    res.end()
   });
 });
 
