@@ -1,10 +1,8 @@
 const http = require('http');
 const express = require('express');
 const app = express();
-const processImages = require('./processImage').processImages;
 
 const PORT = 5000;
-
 const getServerOptions = () => {
   return {
     host: 'localhost',

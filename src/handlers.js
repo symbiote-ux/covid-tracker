@@ -14,6 +14,12 @@ const getWorkerOptions = () => {
   };
 };
 
+const id = 1;
+
+const getWork = (place) => {
+  return { id: id++, place: place };
+};
+
 const infoProvider = new InfoProvider(content);
 
 const districtScheduler = new Scheduler(getWorkerOptions());
@@ -30,8 +36,9 @@ app.use((req, res, next) => {
 app.get('/district/:district/', (req, res) => {
   // const districtInfo = infoProvider.getDistrictInfo(req.params.district);
   districtScheduler.schedule(req.params.district);
-  // res.json(districtInfo);
   console.log('job scheduled', req.params.district);
+  // res.json(districtInfo);
+  res.end();
 });
 
 app.get('/state/:state/', (req, res) => {
@@ -39,6 +46,7 @@ app.get('/state/:state/', (req, res) => {
   stateScheduler.schedule(req.params.state);
   console.log('job scheduled', req.params.state);
   // res.json(StateInfo);
+  res.end();
 });
 
 app.post;
