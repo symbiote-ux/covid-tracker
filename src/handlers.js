@@ -2,8 +2,6 @@ const http = require('http');
 const express = require('express');
 const app = express();
 const { Scheduler } = require('./scheduler');
-const { InfoProvider } = require('./infoProvider');
-const content = require('../database/district.json');
 
 const getWorkerOptions = () => {
   return {
@@ -14,28 +12,38 @@ const getWorkerOptions = () => {
   };
 };
 
-const id = 1;
+let id = 1;
 
 const getWork = (place) => {
   return { id: id++, place: place };
 };
 
-const infoProvider = new InfoProvider(content);
-
 const districtScheduler = new Scheduler(getWorkerOptions());
-// districtScheduler.start();
+districtScheduler.start();
 
 const stateScheduler = new Scheduler(getWorkerOptions());
-// stateScheduler.start();
+stateScheduler.start();
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
 });
 
+app.post('/completed-job/:id', (req, res) => {
+  let data = '';
+  req.on('data', (chunk) => (data += chunk));
+  req.on('end', () => {
+    const tags = JSON.parse(data);
+    console.log('received tags', tags);
+    imageSets.completedProcessing(req.params.id, tags);
+    scheduler.setWorkerFree();
+    res.end();
+  });
+});
+
 app.get('/district/:district/', (req, res) => {
   // const districtInfo = infoProvider.getDistrictInfo(req.params.district);
-  districtScheduler.schedule(req.params.district);
+  districtScheduler.schedule(getWork(req.params.district));
   console.log('job scheduled', req.params.district);
   // res.json(districtInfo);
   res.end();
@@ -43,7 +51,7 @@ app.get('/district/:district/', (req, res) => {
 
 app.get('/state/:state/', (req, res) => {
   // const StateInfo = infoProvider.getStateInfo(req.params.state);
-  stateScheduler.schedule(req.params.state);
+  stateScheduler.schedule(getWork(req.params.state));
   console.log('job scheduled', req.params.state);
   // res.json(StateInfo);
   res.end();

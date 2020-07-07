@@ -1,4 +1,3 @@
-const http = require('http');
 const express = require('express');
 const { InfoProvider } = require('./src/infoProvider');
 const content = require('./database/district.json');
@@ -7,12 +6,28 @@ const app = express();
 const PORT = 5000;
 const infoProvider = new InfoProvider(content);
 
+const getServerOptions = () => {
+  return {
+    host: 'localhost',
+    port: 4000,
+    method: 'post',
+  };
+};
+
+const informWorkerFree = ({ id, tags }) => {
+  const options = getServerOptions();
+  options.path = `/completed-job/${id}`;
+  const req = http.request(options, (res) => {});
+  req.write(JSON.stringify(tags));
+  req.end();
+};
+
 app.post('/process', (req, res) => {
   let data = '';
   req.on('data', (chunk) => (data += chunk));
   req.on('end', () => {
     const info = JSON.parse(data);
-    res.write(infoProvider.getDistrictInfo(info.place));
+    res.json(infoProvider.getDistrictInfo(info.place));
   });
 });
 
