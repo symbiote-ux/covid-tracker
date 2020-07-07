@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
-const { Scheduler } = require('./scheduler');
+const {Scheduler} = require('./scheduler');
+const tempDatabase = {};
 
 const getWorkerOptions = () => {
   return {
@@ -33,7 +34,7 @@ app.post('/completed-job/:id', (req, res) => {
   req.on('end', () => {
     const result = JSON.parse(data);
     console.log('received result', result);
-    // imageSets.completedProcessing(req.params.id, tags);
+    tempDatabase[req.params.id] = result;
     districtScheduler.setWorkerFree();
     res.end();
   });
@@ -44,6 +45,10 @@ app.get('/district/:district/', (req, res) => {
   console.log('job scheduled', req.params.district);
   res.end();
 });
+
+app.get('/myDistrict/:id/', (req, res) => {
+  res.json(tempDatabase[req.params.id])
+})
 
 // app.get('/state/:state/', (req, res) => {
 //   stateScheduler.schedule(getWork(req.params.state));
