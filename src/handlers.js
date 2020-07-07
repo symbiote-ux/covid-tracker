@@ -1,8 +1,9 @@
+const http = require('http');
 const express = require('express');
 const app = express();
-
-const content = require('../database/district.json');
+const { Scheduler } = require('./scheduler');
 const { InfoProvider } = require('./infoProvider');
+const content = require('../database/district.json');
 
 const infoProvider = new InfoProvider(content);
 
