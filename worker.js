@@ -1,3 +1,4 @@
+const http = require('http');
 const express = require('express');
 const { InfoProvider } = require('./src/infoProvider');
 const content = require('./database/district.json');
@@ -27,7 +28,9 @@ app.post('/process', (req, res) => {
   req.on('data', (chunk) => (data += chunk));
   req.on('end', () => {
     const info = JSON.parse(data);
-    res.json(infoProvider.getDistrictInfo(info.place));
+    const result = infoProvider.getDistrictInfo(info.place);
+    console.log(result);
+    informWorkerFree(info);
   });
 });
 

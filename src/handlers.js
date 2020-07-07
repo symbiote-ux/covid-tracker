@@ -1,4 +1,3 @@
-const http = require('http');
 const express = require('express');
 const app = express();
 const { Scheduler } = require('./scheduler');
@@ -13,7 +12,6 @@ const getWorkerOptions = () => {
 };
 
 let id = 1;
-
 const getWork = (place) => {
   return { id: id++, place: place };
 };
@@ -42,21 +40,15 @@ app.post('/completed-job/:id', (req, res) => {
 });
 
 app.get('/district/:district/', (req, res) => {
-  // const districtInfo = infoProvider.getDistrictInfo(req.params.district);
   districtScheduler.schedule(getWork(req.params.district));
   console.log('job scheduled', req.params.district);
-  // res.json(districtInfo);
   res.end();
 });
 
 app.get('/state/:state/', (req, res) => {
-  // const StateInfo = infoProvider.getStateInfo(req.params.state);
   stateScheduler.schedule(getWork(req.params.state));
   console.log('job scheduled', req.params.state);
-  // res.json(StateInfo);
   res.end();
 });
-
-app.post;
 
 module.exports = { app };
