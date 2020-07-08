@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const { Scheduler } = require('./scheduler');
-const tempDatabase = {};
+const redis = require('redis');
+const db = redis.createClient({ db: 1 });
 
 const getWorkerOptions = () => {
   return {
@@ -25,13 +26,12 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post('/completed-job/:id', (req, res) => {
+app.post('/completed-job/:locationName', (req, res) => {
   let data = '';
   req.on('data', (chunk) => (data += chunk));
   req.on('end', () => {
-    const result = JSON.parse(data);
-    console.log('job completed', req.params.id);
-    tempDatabase[req.params.id] = result;
+    console.log('job completed', req.params.locationName);
+    db.hmset(req.params.locationName, data);
     scheduler.setWorkerFree();
     res.end();
   });
@@ -43,8 +43,8 @@ app.get('/covidStatus/:location/:locationName/', (req, res) => {
   res.end();
 });
 
-app.get('/jobStatus/:id/', (req, res) => {
-  res.json(tempDatabase[req.params.id]);
+app.get('/jobStatus/:locationName/', (req, res) => {
+  res.json(db.get(req.params.locationName));
 });
 
 module.exports = { app };
