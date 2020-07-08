@@ -30,7 +30,7 @@ app.post('/completed-job/:id', (req, res) => {
   req.on('data', (chunk) => (data += chunk));
   req.on('end', () => {
     const result = JSON.parse(data);
-    console.log('received result', result);
+    console.log('job completed', req.params.id);
     tempDatabase[req.params.id] = result;
     scheduler.setWorkerFree();
     res.end();

@@ -29,7 +29,7 @@ app.post('/process', (req, res) => {
   req.on('end', () => {
     const job = JSON.parse(data);
     const result = infoProvider.processJob(job);
-    console.log(result);
+    console.log('Job completed',job.id);
     informWorkerFree(job.id, result);
     res.end();
   });
