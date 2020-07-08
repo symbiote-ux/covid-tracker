@@ -44,7 +44,9 @@ app.get('/covidStatus/:location/:locationName/', (req, res) => {
 });
 
 app.get('/jobStatus/:locationName/', (req, res) => {
-  res.json(db.get(req.params.locationName));
+  db.get(req.params.locationName, (err, reply) => {
+    res.json(reply);
+  })
 });
 
 module.exports = { app };
