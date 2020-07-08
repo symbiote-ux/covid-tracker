@@ -31,7 +31,7 @@ app.post('/completed-job/:locationName', (req, res) => {
   req.on('data', (chunk) => (data += chunk));
   req.on('end', () => {
     console.log('job completed', req.params.locationName);
-    db.hmset(req.params.locationName, data);
+    db.set(req.params.locationName, data);
     scheduler.setWorkerFree();
     res.end();
   });
