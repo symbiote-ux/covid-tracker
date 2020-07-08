@@ -15,7 +15,7 @@ const getServerOptions = () => {
   };
 };
 
-const informWorkerFree = ( id, result ) => {
+const informWorkerFree = (id, result) => {
   const options = getServerOptions();
   options.path = `/completed-job/${id}`;
   const req = http.request(options, (res) => {});
@@ -27,11 +27,11 @@ app.post('/process', (req, res) => {
   let data = '';
   req.on('data', (chunk) => (data += chunk));
   req.on('end', () => {
-    const info = JSON.parse(data);
-    const result = infoProvider.getDistrictInfo(info.place);
+    const job = JSON.parse(data);
+    const result = infoProvider.processJob(job);
     console.log(result);
-    informWorkerFree(info.id, result);
-    res.end()
+    informWorkerFree(job.id, result);
+    res.end();
   });
 });
 

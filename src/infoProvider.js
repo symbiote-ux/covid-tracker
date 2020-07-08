@@ -4,9 +4,9 @@ class InfoProvider {
   }
 
   delay(time) {
-    const count = (time * 3000000000);
-    let a,b;
-    for (let i = 0; i < count; i++ ){
+    const count = time * 3000000000;
+    let a, b;
+    for (let i = 0; i < count; i++) {
       a = i;
       b = a * i;
     }
@@ -26,6 +26,12 @@ class InfoProvider {
     return this.info.find(
       (stateInfo) => stateInfo.state.toLowerCase() === value.toLowerCase()
     );
+  }
+  processJob({ location, locationName }) {
+    if (location === 'state') {
+      return this.getStateInfo(locationName);
+    }
+    return this.getDistrictInfo(locationName);
   }
 }
 
