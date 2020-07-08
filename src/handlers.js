@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const {Scheduler} = require('./scheduler');
+const { Scheduler } = require('./scheduler');
 const tempDatabase = {};
 
 const getWorkerOptions = () => {
@@ -13,15 +13,12 @@ const getWorkerOptions = () => {
 };
 
 let id = 1;
-const getWork = (place) => {
-  return { id: id++, place: place };
+const getWork = ({ location, locationName }) => {
+  return { id: id++, location, locationName };
 };
 
-const districtScheduler = new Scheduler(getWorkerOptions());
-districtScheduler.start();
-
-const stateScheduler = new Scheduler(getWorkerOptions());
-stateScheduler.start();
+const scheduler = new Scheduler(getWorkerOptions());
+scheduler.start();
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
@@ -35,25 +32,19 @@ app.post('/completed-job/:id', (req, res) => {
     const result = JSON.parse(data);
     console.log('received result', result);
     tempDatabase[req.params.id] = result;
-    districtScheduler.setWorkerFree();
+    scheduler.setWorkerFree();
     res.end();
   });
 });
 
-app.get('/district/:district/', (req, res) => {
-  districtScheduler.schedule(getWork(req.params.district));
-  console.log('job scheduled', req.params.district);
+app.get('/:location/:locationName/', (req, res) => {
+  scheduler.schedule(getWork(req.params));
+  console.log('job scheduled', req.params.location, req.params.locationName);
   res.end();
 });
 
-app.get('/myDistrict/:id/', (req, res) => {
-  res.json(tempDatabase[req.params.id])
-})
-
-// app.get('/state/:state/', (req, res) => {
-//   stateScheduler.schedule(getWork(req.params.state));
-//   console.log('job scheduled', req.params.state);
-//   res.end();
-// });
+app.get('/statusInfo/:id/', (req, res) => {
+  res.json(tempDatabase[req.params.id]);
+});
 
 module.exports = { app };
