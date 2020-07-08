@@ -37,13 +37,13 @@ app.post('/completed-job/:id', (req, res) => {
   });
 });
 
-app.get('/:location/:locationName/', (req, res) => {
+app.get('/covidStatus/:location/:locationName/', (req, res) => {
   scheduler.schedule(getWork(req.params));
   console.log('job scheduled', req.params.location, req.params.locationName);
   res.end();
 });
 
-app.get('/statusInfo/:id/', (req, res) => {
+app.get('/jobStatus/:id/', (req, res) => {
   res.json(tempDatabase[req.params.id]);
 });
 
