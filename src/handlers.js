@@ -23,17 +23,18 @@ app.post('/completed-job/:locationName', (req, res) => {
   });
 });
 
-app.get('/covidStatus/:location/:locationName/', (req, res) => {
+app.get('/covidStatus/:location/:locationName/', async (req, res) => {
   const job = getWork(req.params);
   res.write(`Go to url=> curl localhost:4000/jobStatus/${job.locationName}`);
-  if (!db.exists(job.locationName)) {
+  if (await db.exists(job.locationName)) {
+    console.log('Your job is completed');
+    res.end();
+  } else {
     db.rpush('undoneWork', job.locationName);
     db.hmset(job.locationName, job.location, job.locationName);
     console.log('job scheduled', req.params.location, req.params.locationName);
     res.end();
   }
-  console.log('Your job is completed');
-  res.end();
 });
 
 app.get('/jobStatus/:locationName/', (req, res) => {

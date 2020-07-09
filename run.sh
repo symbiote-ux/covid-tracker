@@ -1,4 +1,4 @@
-curl localhost:4000/covidStatus/state/curl localhost:4000/covidStatus/state/bihar
+curl localhost:4000/covidStatus/state/bihar
 curl localhost:4000/covidStatus/state/Maharashtra
 curl localhost:4000/covidStatus/state/Tamil
 curl localhost:4000/covidStatus/state/Delhi
