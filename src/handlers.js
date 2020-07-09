@@ -41,14 +41,7 @@ app.get('/covidStatus/:location/:locationName/', (req, res) => {
   // scheduler.schedule(getWork(req.params));
   const job = getWork(req.params);
   db.rpush('undoneWork', job.id);
-  db.hmset(
-    'id',
-    job.locationName,
-    'location',
-    job.location,
-    'locationName',
-    job.locationName
-  );
+  db.hmset(job.locationName, job.location, job.locationName);
   console.log('job scheduled', req.params.location, req.params.locationName);
   res.end();
 });
