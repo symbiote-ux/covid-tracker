@@ -66,7 +66,6 @@ const runLoop = () => {
       getJobFromDb(id).then((job) => {
         const [location, locationName] = Object.entries(job)[0];
         const result = infoProvider.processJob(location, locationName);
-        console.log(result, '-----------------');
         db.set(locationName, JSON.stringify(result));
       });
     })

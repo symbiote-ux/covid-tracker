@@ -40,10 +40,12 @@ app.post('/completed-job/:locationName', (req, res) => {
 app.get('/covidStatus/:location/:locationName/', (req, res) => {
   // scheduler.schedule(getWork(req.params));
   const job = getWork(req.params);
-  db.rpush('undoneWork', job.locationName);
-  db.hmset(job.locationName, job.location, job.locationName);
-  console.log('job scheduled', req.params.location, req.params.locationName);
-  res.end();
+  if (!db.exists(job.locationName)) {
+    db.rpush('undoneWork', job.locationName);
+    db.hmset(job.locationName, job.location, job.locationName);
+    console.log('job scheduled', req.params.location, req.params.locationName);
+    res.end();
+  }
 });
 
 app.get('/jobStatus/:locationName/', (req, res) => {
