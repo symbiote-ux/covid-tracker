@@ -34,4 +34,4 @@ const runLoop = () => {
     .catch((msg) => console.log(msg));
 };
 
-setInterval(runLoop, 5000);
+setInterval(runLoop, 10000);
