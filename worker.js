@@ -54,19 +54,19 @@ const getJobFromDb = (id) => {
 const getJob = () => {
   return new Promise((resolve, reject) => {
     db.lpop('undoneWork', (err, res) => {
-      if (!err) resolve(res);
-      reject('No Job present!');
+      if (err || res === null) reject('No Job present!');
+      resolve(res);
     });
   });
 };
 
 const runLoop = () => {
-  getJob.then((id) => {
+  getJob().then((id) => {
     getJobFromDb(id).then((job) => {
       console.log(job);
       // infoProvider.processJob(job);
     });
-  });
+  }).catch(msg =>  console.log(msg));
 };
 
 setInterval(runLoop, 5000);
