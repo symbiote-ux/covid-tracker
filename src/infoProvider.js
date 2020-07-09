@@ -25,7 +25,7 @@ class InfoProvider {
       (stateInfo) => stateInfo.state.toLowerCase() === value.toLowerCase()
     );
   }
-  processJob({ location, locationName }) {
+  processJob(location, locationName) {
     if (location === 'state') {
       return this.getStateInfo(locationName);
     }
