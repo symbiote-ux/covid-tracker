@@ -2,7 +2,6 @@ class InfoProvider {
   constructor(content) {
     this.info = content;
   }
-
   delay(time) {
     const count = time * 3000000000;
     let a, b;
@@ -11,7 +10,6 @@ class InfoProvider {
       b = a * i;
     }
   }
-
   getDistrictInfo(value) {
     this.delay(2);
     for (let i = 0; i < this.info.length; i++) {
