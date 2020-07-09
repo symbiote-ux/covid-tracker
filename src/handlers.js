@@ -10,7 +10,10 @@ const getWork = ({ location, locationName }) => {
 
 const isLocationSearched = async function (location) {
   return new Promise((resolve, reject) => {
-    db.keys(location,(err, reply)=>resolve(reply));
+    db.keys(location, (err, reply) => {
+      if (reply.length) resolve(true)
+      resolve(false)
+    });
   });
 };
 
