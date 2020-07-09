@@ -39,6 +39,9 @@
 
 const redis = require('redis');
 const db = redis.createClient({ db: 1 });
+const content = require('./database/district.json');
+const { InfoProvider } = require('./src/infoProvider');
+const infoProvider = new InfoProvider(content);
 
 const getJobFromDb = (id) => {
   return new Promise((resolve, reject) => {
@@ -52,12 +55,18 @@ const getJob = () => {
   return new Promise((resolve, reject) => {
     db.lpop('undoneWork', (err, res) => {
       if (!err) resolve(res);
+      reject('No Job present!');
     });
   });
 };
 
 const runLoop = () => {
   getJob.then((id) => {
-    const job = getJobFromDb(id);
+    getJobFromDb(id).then((job) => {
+      console.log(job);
+      // infoProvider.processJob(job);
+    });
   });
 };
+
+setInterval(runLoop, 5000);
