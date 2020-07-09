@@ -28,6 +28,7 @@ const runLoop = () => {
         const [location, locationName] = Object.entries(job)[0];
         const result = infoProvider.processJob(location, locationName);
         db.set(locationName, JSON.stringify(result));
+        console.log('Job completed', locationName);
       });
     })
     .catch((msg) => console.log(msg));

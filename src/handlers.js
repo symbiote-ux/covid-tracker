@@ -25,7 +25,7 @@ app.post('/completed-job/:locationName', (req, res) => {
 
 app.get('/covidStatus/:location/:locationName/', (req, res) => {
   const job = getWork(req.params);
-  res.write(`Go to this url => curl localhost:4000/jobStatus/${job.locationName}`);
+  res.write(`Go to url=> curl localhost:4000/jobStatus/${job.locationName}`);
   if (!db.exists(job.locationName)) {
     db.rpush('undoneWork', job.locationName);
     db.hmset(job.locationName, job.location, job.locationName);
