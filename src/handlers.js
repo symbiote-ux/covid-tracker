@@ -8,6 +8,12 @@ const getWork = ({ location, locationName }) => {
   return { id: id++, location, locationName };
 };
 
+const isLocationSearched = async function (location) {
+  return new Promise((resolve, reject) => {
+    db.keys(location,(err, reply)=>resolve(reply));
+  });
+};
+
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
@@ -23,10 +29,11 @@ app.post('/completed-job/:locationName', (req, res) => {
   });
 });
 
+// db.exists(job.locationName);
 app.get('/covidStatus/:location/:locationName/', async (req, res) => {
   const job = getWork(req.params);
   res.write(`Go to url=> curl localhost:4000/jobStatus/${job.locationName}`);
-  if (await db.exists(job.locationName)) {
+  if ( await isLocationSearched(job.locationName)) {
     console.log('Your job is completed');
     res.end();
   } else {
