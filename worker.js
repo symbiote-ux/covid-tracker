@@ -63,14 +63,11 @@ const getJob = () => {
 const runLoop = () => {
   getJob()
     .then((id) => {
-      getJobFromDb(id)
-        .then((job) => {
-          const [location, locationName] = Object.entries(job)[0];
-          return infoProvider.processJob(location, locationName);
-        })
-        .then((result) => {
-          db.set(locationName, result);
-        });
+      getJobFromDb(id).then((job) => {
+        const [location, locationName] = Object.entries(job)[0];
+        const result = infoProvider.processJob(location, locationName);
+        db.set(locationName, result);
+      });
     })
     .catch((msg) => console.log(msg));
 };
