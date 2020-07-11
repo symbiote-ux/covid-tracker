@@ -1,6 +1,6 @@
 const redis = require('redis');
 const db = redis.createClient({ db: 1 });
-const { getStateCases } = require('./lib/infoProvider');
+const { getCases } = require('./lib/infoProvider');
 
 const getJobFromDb = (id) => {
   return new Promise((resolve, reject) => {
@@ -25,7 +25,8 @@ const runLoop = () => {
       getJobFromDb(id)
         .then((job) => {
           const [location, locationName] = Object.entries(job)[0];
-          getStateCases(locationName).then((result) => {
+          getCases(location, locationName).then((result) => {
+            console.log(locationName, JSON.stringify(result));
             db.set(locationName, JSON.stringify(result));
             console.log('Job completed', locationName);
           });
