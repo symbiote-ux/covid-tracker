@@ -30,7 +30,6 @@ const runLoop = () => {
           const [location, locationName] = Object.entries(job)[0];
           // const result = infoProvider.processJob(location, locationName);
           const result = getStateCases(locationName);
-          console.log(result, '---------------');
           db.set(locationName, JSON.stringify(result));
           console.log('Job completed', locationName);
         })
