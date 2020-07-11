@@ -1,7 +1,7 @@
 const redis = require('redis');
 const db = redis.createClient({ db: 1 });
 const content = require('./database/district.json');
-const { InfoProvider } = require('./src/infoProvider');
+const { InfoProvider } = require('./lib/infoProvider');
 const infoProvider = new InfoProvider(content);
 
 const getJobFromDb = (id) => {

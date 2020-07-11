@@ -20,6 +20,7 @@
   "homepage": "https://github.com/symbiote-ux/covid-tracker#readme",
   "devDependencies": {
     "express": "^4.17.1",
-    "redis": "^3.0.2"
+    "redis": "^3.0.2",
+    "vorpal": "^1.12.0"
   }
 }
