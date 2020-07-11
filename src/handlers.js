@@ -32,7 +32,6 @@ app.post('/completed-job/:locationName', (req, res) => {
   });
 });
 
-// db.exists(job.locationName);
 app.get('/covidStatus/:location/:locationName/', async (req, res) => {
   const job = getWork(req.params);
   res.write(`Go to url=> curl localhost:4000/jobStatus/${job.locationName}`);
