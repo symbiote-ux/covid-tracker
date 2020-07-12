@@ -4,32 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Covid-Tracker</title>
-    <link rel="stylesheet" href="./css/style.css" />
     <script src="/js/requests.js"></script>
+    <script src="./js/script.js"></script>
   </head>
   <body>
     <h1>Hello</h1>
     <!-- <form action="process" method="POST"> -->
     <div>
-      <select name="location" id="loc">
+      <select name="location" id="loc" onchange="createField()">
         <option value="state">State</option>
         <option value="district">District</option>
       </select>
-      <select name="locationName" id="locName">
-        <option value="dehradun">Dehradun</option>
-        <option value="patna">Patna</option>
-      </select>
+      <div id="locNameOption"></div>
       <input type="submit" value="submit" onclick="processJob()" />
     </div>
     <!-- </form> -->
-
     <div>
       <input type="text" name="id" placeholder="Enter Job id..." id="jobId" />
-      <input type="submit" value="submit" onclick="getProcessedJob()"/>
+      <input type="submit" value="submit" onclick="getProcessedJob()" />
     </div>
-    <!-- <form action="getInfo"method='POST'>
-    </form> -->
-
     <div id="board"></div>
   </body>
 </html>
