@@ -21,11 +21,11 @@ const getJob = () => {
 
 const runLoop = async () => {
   try {
-    const {jobId} = await getJob();
+    const { jobId } = await getJob();
     const job = await getJobFromDb(jobId);
     const [location, locationName] = Object.entries(job)[0];
     const cases = await getCases(location, locationName);
-    await db.set(jobId, JSON.stringify(cases));
+    await db.hmset(jobId, 'cases', JSON.stringify(cases));
     console.log('job completed', jobId, locationName);
     runLoop();
   } catch (error) {
