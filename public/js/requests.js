@@ -2,8 +2,7 @@ const sendReq = function (method, url, body, callback) {
   const req = new XMLHttpRequest();
   req.onload = function () {
     if (this.status < 400) {
-      console.log(this.responseText);
-      return callback(this.responseText);
+      return callback(JSON.parse(this.responseText));
     }
   };
   req.open(method, url);
@@ -15,7 +14,7 @@ const sendReq = function (method, url, body, callback) {
   req.send(content);
 };
 
-const updateDisplay = function ({msg, jobId}) {
+const updateDisplay = function ({msg,jobId}) {
   const message = `<p>${msg}</p>`;
   const board = document.getElementById('board');
   board.innerHTML = message;
