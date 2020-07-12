@@ -19,9 +19,9 @@ const createSelectOption = (content) => {
 const createField = () => {
   const location = document.querySelector('#loc').value;
   if (location === 'district') {
-    createSelectOption(data.districts);
+    createSelectOption(data.districts.sort());
   } else {
-    createSelectOption(data.states);
+    createSelectOption(data.states.sort());
   }
 };
 
