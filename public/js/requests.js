@@ -1,3 +1,34 @@
+const displayCasesTable = (name, content) => {
+  const box = document.createElement('div');
+  box.id = 'table';
+  const header = document.createElement('div');
+  header.id = 'header';
+  header.innerText = name;
+  box.appendChild(header);
+  const body = document.createElement('div');
+  body.id = 'table-body';
+  const { confirmed, recovered, deaths } = content;
+  const active = confirmed - (recovered + deaths);
+  const x = document.createElement('div');
+  x.id = 'confirmed';
+  x.innerText = `Confirmed: ${confirmed}`;
+  const y = document.createElement('div');
+  y.id = 'recovered';
+  y.innerText = `Recovered: ${recovered}`;
+  const z = document.createElement('div');
+  z.id = 'deaths';
+  z.innerText = `Deaths: ${deaths}`;
+  const a = document.createElement('div');
+  a.id = 'active';
+  a.innerText = `Active: ${active}`;
+  body.appendChild(x);
+  body.appendChild(y);
+  body.appendChild(z);
+  body.appendChild(a);
+  box.appendChild(body);
+  return box;
+};
+
 const sendReq = function (method, url, body, callback) {
   const req = new XMLHttpRequest();
   req.onload = function () {
@@ -27,9 +58,10 @@ const processJob = function () {
 };
 
 const displayProcessedData = function (result) {
-  const message = `<p>${JSON.stringify(result)}</p>`;
+  // const message = `<p>${JSON.stringify(result)}</p>`;
+  const message = displayCasesTable(result.state, result);
   const board = document.getElementById('board');
-  board.innerHTML = message;
+  board.appendChild(message);
 };
 
 const getProcessedJob = function () {
