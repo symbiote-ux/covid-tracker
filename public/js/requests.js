@@ -1,13 +1,13 @@
-const displayCasesTable = (name, content) => {
+const displayCasesTable = (result) => {
+  const {locName, confirmed, recovered, deaths } = result;
   const box = document.createElement('div');
   box.id = 'table';
   const header = document.createElement('div');
   header.id = 'header';
-  header.innerText = name;
+  header.innerText = locName;
   box.appendChild(header);
   const body = document.createElement('div');
   body.id = 'table-body';
-  const { confirmed, recovered, deaths } = content;
   const active = confirmed - (recovered + deaths);
   const x = document.createElement('div');
   x.id = 'confirmed';
@@ -59,7 +59,7 @@ const processJob = function () {
 
 const displayProcessedData = function (result) {
   // const message = `<p>${JSON.stringify(result)}</p>`;
-  const message = displayCasesTable(result.state, result);
+  const message = displayCasesTable(result);
   const board = document.getElementById('board');
   board.appendChild(message);
 };

@@ -19,13 +19,21 @@ const getJob = () => {
   });
 };
 
+const formateData = function (cases, locName) {
+  const data = { locName };
+  data.confirmed = cases.confirmed || cases.total_cases;
+  data.recovered = cases.recovered || cases.recovery_cases;
+  data.deaths = cases.deaths || cases.death_cases;
+  return data;
+};
+
 const runLoop = async () => {
   try {
     const { jobId } = await getJob();
     const job = await getJobFromDb(jobId);
     const [location, locationName] = Object.entries(job)[0];
     const cases = await getCases(location, locationName);
-    await db.hmset(jobId, 'cases', JSON.stringify(cases));
+    await db.hmset(jobId, 'cases', JSON.stringify(formateData(cases,locationName)));
     console.log('job completed', jobId, locationName);
     runLoop();
   } catch (error) {
