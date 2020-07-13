@@ -1,5 +1,5 @@
 const displayCasesTable = (result) => {
-  const {locName, confirmed, recovered, deaths } = result;
+  const { locName, confirmed, recovered, deaths } = result;
   const box = document.createElement('div');
   box.id = 'table';
   const header = document.createElement('div');
@@ -10,16 +10,16 @@ const displayCasesTable = (result) => {
   body.id = 'table-body';
   const active = confirmed - (recovered + deaths);
   const x = document.createElement('div');
-  x.id = 'confirmed';
+  x.className = 'unit';
   x.innerText = `Confirmed: ${confirmed}`;
   const y = document.createElement('div');
-  y.id = 'recovered';
+  y.className = 'unit';
   y.innerText = `Recovered: ${recovered}`;
   const z = document.createElement('div');
-  z.id = 'deaths';
+  z.className = 'unit';
   z.innerText = `Deaths: ${deaths}`;
   const a = document.createElement('div');
-  a.id = 'active';
+  a.className = 'unit';
   a.innerText = `Active: ${active}`;
   body.appendChild(x);
   body.appendChild(y);

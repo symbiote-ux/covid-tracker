@@ -1,6 +1,9 @@
 body {
   height: 100vh;
   width: 100vw;
+  background-image: url('../image/1.jpg');
+  background-size: contain;
+  background-repeat: round;
 }
 
 #heading {
@@ -34,4 +37,13 @@ h2 {
   height: 300px;
   margin: 0 auto;
   border-radius: 8px;
+  background-color: snow;
+}
+
+#header {
+  border-bottom: 1px solid black;
+}
+
+.unit {
+  border-bottom: 1px solid black;
 }
