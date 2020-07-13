@@ -8,10 +8,30 @@ body {
   justify-content: center;
   border-radius: 10px;
   background-color: rgb(119, 221, 224);
-  margin: 3px;
+  margin: 2px;
 }
 
 h2 {
   font-family: sans-serif;
-  font-size: x-large;
+  font-size: larger;
+}
+
+#location-box {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
+#job-id {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+#board {
+  border: 1px solid black;
+  width: 250px;
+  height: 300px;
+  margin: 0 auto;
+  border-radius: 8px;
 }
