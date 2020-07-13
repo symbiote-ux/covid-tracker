@@ -41,7 +41,7 @@ const runLoop = async () => {
     runLoop();
   } catch (error) {
     console.log(error);
-    setTimeout(runLoop, 5000);
+    setTimeout(runLoop, 1000);
   }
 };
 
