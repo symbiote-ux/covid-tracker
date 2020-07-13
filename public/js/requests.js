@@ -1,5 +1,5 @@
 const displayCasesTable = (result) => {
-  const { locName, confirmed, recovered, deaths } = result;
+  const { locName, confirmed, recovered, deaths, active } = result;
   const box = document.createElement('div');
   box.id = 'table';
   const header = document.createElement('div');
@@ -8,19 +8,18 @@ const displayCasesTable = (result) => {
   box.appendChild(header);
   const body = document.createElement('div');
   body.id = 'table-body';
-  const active = confirmed - (recovered + deaths);
   const x = document.createElement('div');
   x.className = 'unit';
-  x.innerText = `Confirmed: ${confirmed}`;
+  x.innerText = `Confirmed: ${confirmed || 0}`;
   const y = document.createElement('div');
   y.className = 'unit';
-  y.innerText = `Recovered: ${recovered}`;
+  y.innerText = `Recovered: ${recovered || 0}`;
   const z = document.createElement('div');
   z.className = 'unit';
-  z.innerText = `Deaths: ${deaths}`;
+  z.innerText = `Deaths: ${deaths || 0}`;
   const a = document.createElement('div');
   a.className = 'unit';
-  a.innerText = `Active: ${active}`;
+  a.innerText = `Active: ${active || 0}`;
   body.appendChild(x);
   body.appendChild(y);
   body.appendChild(z);
@@ -60,6 +59,7 @@ const processJob = function () {
 const displayProcessedData = function (result) {
   const message = displayCasesTable(result);
   const board = document.getElementById('board');
+  board.innerHTML = '';
   board.appendChild(message);
 };
 

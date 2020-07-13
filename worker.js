@@ -25,6 +25,7 @@ const formateData = function (cases, locName) {
   data.confirmed = cases.confirmed || cases.total_cases;
   data.recovered = cases.recovered || cases.recovery_cases;
   data.deaths = cases.deaths || cases.death_cases;
+  data.active = data.confirmed - (data.recovered + data.deaths);
   return data;
 };
 
