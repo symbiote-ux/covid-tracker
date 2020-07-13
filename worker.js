@@ -33,12 +33,16 @@ const runLoop = async () => {
     const job = await getJobFromDb(jobId);
     const [location, locationName] = Object.entries(job)[0];
     const cases = await getCases(location, locationName);
-    await db.hmset(jobId, 'cases', JSON.stringify(formateData(cases,locationName)));
+    const data =
+      location === 'world'
+        ? formateData(cases.data, locationName)
+        : formateData(cases, locationName);
+    await db.hmset(jobId, 'cases', JSON.stringify(data));
     console.log('job completed', jobId, locationName);
     runLoop();
   } catch (error) {
     console.log(error);
-    setTimeout(runLoop, 5000);
+    setTimeout(runLoop, 1000);
   }
 };
 
