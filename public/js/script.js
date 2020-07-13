@@ -807,7 +807,7 @@ const data = {
     'West Sikkim',
     'North Sikkim',
   ],
-  world: ['world'],
+  world: ['World'],
 };
 
 const createSelectOption = (content) => {

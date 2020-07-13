@@ -1,6 +1,7 @@
 body {
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
 }
 
 #heading {
@@ -35,12 +36,18 @@ h2 {
   margin: 0 auto;
   border-radius: 8px;
   background-color: snow;
+  text-align: center;
+  overflow: scroll;
 }
 
 #header {
   border-bottom: 1px solid black;
+  font-size: xx-large;
+  height: 50px;
 }
 
 .unit {
   border-bottom: 1px solid black;
+  font-size: x-large;
+  height: 40px;
 }

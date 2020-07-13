@@ -58,7 +58,6 @@ const processJob = function () {
 };
 
 const displayProcessedData = function (result) {
-  // const message = `<p>${JSON.stringify(result)}</p>`;
   const message = displayCasesTable(result);
   const board = document.getElementById('board');
   board.appendChild(message);
