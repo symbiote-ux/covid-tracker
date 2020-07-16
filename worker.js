@@ -21,14 +21,21 @@ const getJob = () => {
 
 const formateData = function (cases, locName) {
   cases = cases.data ? cases.data : cases;
-  const data = {locName};
+  const data = { locName };
   data.confirmed = cases.confirmed || cases.total_cases;
   data.recovered = cases.recovered || cases.recovery_cases;
   data.deaths = cases.deaths || cases.death_cases;
-  data.active = data.confirmed - (data.recovered + data.deaths);
+  if (locName.toLowerCase() === 'world') {
+    const recoveredCount = data.recovered.split(',').join('');
+    const deathCount = data.deaths.split(',').join('');
+    const confirmedCount = data.confirmed.split(',').join('');
+    data.active = +confirmedCount - (+deathCount + +recoveredCount);
+    return data;
+  }
+  data.active =
+    cases.active || +data.confirmed - (+data.recovered + +data.deaths);
   return data;
 };
-
 const runLoop = async () => {
   try {
     const { jobId } = await getJob();
